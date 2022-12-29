@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import axios from "axios";
 import type { AppProps } from "next/app";
 
 // axios.defaults.baseURL = "http://104.251.211.125:8055";

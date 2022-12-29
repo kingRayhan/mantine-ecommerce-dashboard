@@ -1,14 +1,20 @@
 import AppWrapper from "@/components/AppWrapper";
+import AppContextProvider from "@/context/AppContextProvider";
 import "@/styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import axios from "axios";
 import type { AppProps } from "next/app";
 
 // axios.defaults.baseURL = "http://104.251.211.125:8055";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -22,9 +28,11 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       >
         <NotificationsProvider position="top-right">
-          <AppWrapper>
-            <Component {...pageProps} />
-          </AppWrapper>
+          <AppContextProvider>
+            <AppWrapper>
+              <Component {...pageProps} />
+            </AppWrapper>
+          </AppContextProvider>
         </NotificationsProvider>
       </MantineProvider>
     </QueryClientProvider>
